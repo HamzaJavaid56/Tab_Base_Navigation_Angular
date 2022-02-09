@@ -1,0 +1,92 @@
+<div id="body">
+
+    <!--  Top Header  -->
+    <header class="header" id="header">
+        <div class="header_toggle"> <i (click)="ToogleNavBar()" class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+    </header>
+
+    <!--  SideNavbar  -->
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav_logo">
+                    <i class='bx bx-layer nav_logo-icon'></i>
+                    <span class="nav_logo-name">BBBootstrap</span>
+                </a>
+
+                <div class="nav_list">
+                    <!-- Dashboard -->
+                    <a (click)="NavigateTo('pagination')" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+                    <!-- Users -->
+
+                    <a (click)="NavigateTo('users')" class="nav_link">
+                        <i class='bx bx-user nav_icon'></i>
+                        <span class="nav_name">Users</span>
+                    </a>
+                    <!-- Messages -->
+                    <a (click)="NavigateTo('posts')" class="nav_link">
+                        <i class='bx bx-message-square-detail nav_icon'></i>
+                        <span class="nav_name">Messages</span>
+                    </a>
+                    <!-- Bookmark -->
+                    <a (click)="NavigateTo('setting')" class="nav_link">
+                        <i class='bx bx-bookmark nav_icon'></i>
+                        <span class="nav_name">Bookmark</span>
+                    </a>
+                    <!-- Files -->
+                    <a (click)="NavigateTo('pagination')" class="nav_link">
+                        <i class='bx bx-folder nav_icon'></i>
+                        <span class="nav_name">Files</span>
+                    </a>
+                    <!-- Stats -->
+                    <a class="nav_link">
+                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                        <span class="nav_name">Stats</span>
+                    </a>
+                </div>
+            </div>
+            <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contetn Container -->
+    <div class="tab  flex-fill h-100 px-0 bg-white border-bottom d-flex flex-column">
+		<!-- All tabs -->
+		<ul id="ul-tabs" class="nav nav-tabs bg-light mt-3" >
+			<li id="li-tabs" class="nav-item" *ngFor="let tab of tabs; let first = first;" (mouseleave)="mouseOverTab(null)"
+				(mouseenter)="mouseOverTab(tab)">
+				<div class="nav-link" [class.active]="tab.active">
+					<div class="d-flex flex-row cursor-pointer">
+						<div class="flex-fill " [routerLink]="tab.route.path" style="cursor: pointer;">{{ tab.name }}
+							<span style="color: white;">...</span></div>
+
+
+						<div class="transition-all-ease-250ms"
+							[style.width]="currentHoverTabKey == tab.key ? 'auto': '0px'"
+							[class.pl-3]="currentHoverTabKey == tab.key"
+							[class.opacity-0]="currentHoverTabKey != tab.key"
+							[class.invisible]="currentHoverTabKey != tab.key" *ngIf="tabs.length > 1"
+							(click)="disposeTab(tab)" style="color:red;cursor: pointer;"> X</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+		<!-- Content of one tab (and all other non visible) -->
+		<div class="tab-content p-3 border-left border-right flex-fill">
+			<ng-container *ngFor="let tab of tabs">
+				<div class="tab-pane fade {{tab.name}}" [class.show]="tab.active" [class.active]="tab.active"
+					[id]="tab.name" role="tabpanel">
+					<ng-container *ngComponentOutlet="tab.component;"></ng-container>
+				</div>
+			</ng-container>
+		</div>
+
+	</div>
+
+</div>
